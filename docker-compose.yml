@@ -127,13 +127,11 @@ services:
       - "4840:4840"
     volumes:
       - ./node_red_data:/data
-      - ./certs:/certs
     depends_on:
       - mosquitto
       - frontend-gateway
     networks:
       - uns-network
-    # https://localhost:1880
 
   mosquitto:
     container_name: mosquitto-v2
