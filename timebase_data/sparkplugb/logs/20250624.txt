@@ -1,0 +1,28 @@
+2025-06-24 13:51:57.715 +00:00 [INF] Collector start requested ...
+2025-06-24 13:51:57.763 +00:00 [INF] Collector 'Settings' path configured as /sparkplugb/settings
+2025-06-24 13:51:57.763 +00:00 [INF] Collector 'Plugins' path configured as /plugins
+2025-06-24 13:51:57.764 +00:00 [INF] Collector 'Config' path configured as /sparkplugb/config
+2025-06-24 13:51:57.764 +00:00 [INF] Collector 'Data' path configured as /sparkplugb/data
+2025-06-24 13:51:57.765 +00:00 [INF] Collector 'Logs' path configured as /sparkplugb/logs
+2025-06-24 13:51:57.765 +00:00 [INF] Collector 'Auth' disabled
+2025-06-24 13:51:57.766 +00:00 [INF] Collector 'Dataset' configured as UNS Demo
+2025-06-24 13:51:57.847 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-06-24 13:51:57.972 +00:00 [INF] Process listening on http://0.0.0.0:4521
+2025-06-24 13:51:58.078 +00:00 [WRN] Client Local failed to refresh tag cache for dataset UNS Demo: Connection refused (historian:4511)
+2025-06-24 13:51:58.087 +00:00 [INF] Collector 5763-1724-0618-2025
+2025-06-24 13:51:58.222 +00:00 [INF] Collector plugin SparkplugB starting ...
+2025-06-24 13:51:58.230 +00:00 [INF] SparkplugB plugin creating connection to mosquitto:1883 ...
+2025-06-24 13:51:58.258 +00:00 [INF] SparkplugB plugin connected to mosquitto:1883, subscribing ...
+2025-06-24 13:51:58.265 +00:00 [INF] Collector plugin SparkplugB started
+2025-06-24 13:51:58.286 +00:00 [INF] Collector started
+2025-06-24 13:51:58.288 +00:00 [WRN] Client Local failed to send status data to "http://historian:4511/": Connection refused (historian:4511)
+2025-06-24 15:30:56.657 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-24 15:39:53.337 +00:00 [INF] Client Local sending buffer for dataset UNS Demo cancelled
+2025-06-24 15:39:53.337 +00:00 [INF] Collector plugin SparkplugB heartbeat cancelled
+2025-06-24 15:39:53.337 +00:00 [INF] Client Local buffer sending initializer cancelled
+2025-06-24 15:39:53.342 +00:00 [INF] Collector stopping ...
+2025-06-24 15:39:53.346 +00:00 [INF] SparkplugB plugin disconnecting ...
+2025-06-24 15:39:53.355 +00:00 [INF] SparkplugB plugin disconnected
+2025-06-24 15:39:53.363 +00:00 [WRN] Client Local failed to send status data to "http://historian:4511/": Connection refused (historian:4511)
+2025-06-24 15:39:53.364 +00:00 [INF] Collector sending stopped status to historian[0]
+2025-06-24 15:39:53.371 +00:00 [INF] Collector stopped

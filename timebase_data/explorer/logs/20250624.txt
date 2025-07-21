@@ -1,0 +1,20 @@
+2025-06-24 13:51:57.693 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-06-24 13:51:57.819 +00:00 [INF] Explorer starting ...
+2025-06-24 13:51:57.820 +00:00 [INF] Explorer 'Settings' path configured as /explorer/settings
+2025-06-24 13:51:57.820 +00:00 [INF] Explorer 'Config' set to /explorer/config
+2025-06-24 13:51:57.821 +00:00 [INF] Explorer 'Logs' set to /explorer/logs
+2025-06-24 13:51:57.922 +00:00 [INF] Explorer 2286-1704-0618-2025
+2025-06-24 13:51:57.926 +00:00 [INF] Explorer initialized
+2025-06-24 13:51:57.948 +00:00 [INF] Visuals initializing cache ...
+2025-06-24 13:51:57.955 +00:00 [INF] Visuals cache initialized
+2025-06-24 13:51:58.094 +00:00 [INF] Process listening on http://0.0.0.0:4531
+2025-06-24 15:32:28.109 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-24 15:32:28.206 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {79b20ddc-5de4-4268-8818-f7e3cd3ec7f7} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)

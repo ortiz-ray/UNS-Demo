@@ -1,0 +1,8 @@
+2025-06-19 12:01:37.220 +00:00 [INF] Collector stopping ...
+2025-06-19 12:01:37.255 +00:00 [INF] SparkplugB plugin disconnecting ...
+2025-06-19 12:01:37.279 +00:00 [INF] Client Local buffer sending initializer cancelled
+2025-06-19 12:01:37.279 +00:00 [INF] Client Local sending buffer for dataset UNS Demo cancelled
+2025-06-19 12:01:37.280 +00:00 [INF] Collector plugin SparkplugB heartbeat cancelled
+2025-06-19 12:01:37.283 +00:00 [INF] SparkplugB plugin disconnected
+2025-06-19 12:01:37.291 +00:00 [INF] Collector sending stopped status to historian[0]
+2025-06-19 12:01:37.306 +00:00 [INF] Collector stopped

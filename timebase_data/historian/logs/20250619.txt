@@ -1,0 +1,1 @@
+2025-06-19 12:01:44.935 +00:00 [INF] Historian dataset UNS Demo collector has stopped cleanly

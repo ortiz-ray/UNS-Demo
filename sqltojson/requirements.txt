@@ -1,0 +1,3 @@
+pymysql
+paho-mqtt
+cryptography

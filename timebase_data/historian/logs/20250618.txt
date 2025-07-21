@@ -1,0 +1,125 @@
+2025-06-18 17:04:22.558 +00:00 [INF] Historian starting ...
+2025-06-18 17:04:22.602 +00:00 [INF] Historian 'Settings' path configured as /historian/settings
+2025-06-18 17:04:22.603 +00:00 [INF] Historian 'Data' set to /historian/data
+2025-06-18 17:04:22.604 +00:00 [INF] Historian 'Logs' path configured as /historian/logs
+2025-06-18 17:04:22.604 +00:00 [INF] Historian 'Auth' disabled
+2025-06-18 17:04:22.728 +00:00 [INF] Historian 2266-1704-0618-2025
+2025-06-18 17:04:22.732 +00:00 [INF] Historian started
+2025-06-18 17:04:22.743 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-06-18 17:04:22.844 +00:00 [WRN] No XML encryptor configured. Key {7632f425-c583-4e56-9c78-3ec36a282d66} may be persisted to storage in unencrypted form.
+2025-06-18 17:04:22.857 +00:00 [INF] Historian tags: 0
+2025-06-18 17:04:22.859 +00:00 [INF] Historian size: 0.0 GB
+2025-06-18 17:04:22.860 +00:00 [INF] Historian age: 0.0 days
+2025-06-18 17:04:22.862 +00:00 [INF] Historian environment OS: Debian GNU/Linux 12 (bookworm)
+2025-06-18 17:04:22.862 +00:00 [INF] Historian environment architecture: "X64"
+2025-06-18 17:04:22.864 +00:00 [INF] Historian environment framework: .NET 8.0.16
+2025-06-18 17:04:22.864 +00:00 [INF] Historian environment: Docker
+2025-06-18 17:04:22.865 +00:00 [INF] Historian space available: 989.0 GB (98.3%)
+2025-06-18 17:04:22.893 +00:00 [INF] Process listening on http://0.0.0.0:4511
+2025-06-18 17:04:42.502 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-18 17:06:04.397 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {cbc27fbd-1338-41d9-a772-e5fd878103ac} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-06-18 17:25:06.091 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:25:17.091 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:25:28.084 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:25:39.083 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:25:42.563 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {275a31c9-99f2-44dc-b25c-2d5e71a70d69} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-06-18 17:25:50.083 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:26:01.083 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:26:12.085 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:26:23.084 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:26:34.089 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:26:45.094 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:26:56.087 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:27:07.089 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:27:18.091 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:27:29.084 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:27:40.091 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:27:51.101 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:28:02.105 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:28:13.104 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:28:24.100 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:28:35.102 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:28:38.107 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {275a31c9-99f2-44dc-b25c-2d5e71a70d69} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-06-18 17:28:46.102 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:28:57.103 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:29:08.111 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:29:19.109 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:29:30.127 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:29:41.126 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:29:52.126 +00:00 [WRN] Historian dataset UNS Demo collector has lost communication
+2025-06-18 17:30:04.734 +00:00 [INF] Dataset "Starting"
+2025-06-18 17:30:04.741 +00:00 [INF] Dataset blocks initialized: 0 in 5ms
+2025-06-18 17:30:04.748 +00:00 [INF] Dataset object blocks initialized: 0 in 5ms
+2025-06-18 17:30:04.752 +00:00 [INF] Dataset tag data initialized: 0 tags in 3ms
+2025-06-18 17:30:04.754 +00:00 [INF] Dataset tag info and last value initialized: 0 tags in 1ms
+2025-06-18 17:30:04.820 +00:00 [INF] Dataset "Running"
+2025-06-18 17:30:09.956 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {174b2e5d-a9c9-4452-9481-cdec1cfdd879} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-06-18 17:31:21.942 +00:00 [INF] Dataset "Stopping"
+2025-06-18 17:31:22.098 +00:00 [INF] Dataset "Stopped"
+2025-06-18 17:31:23.908 +00:00 [INF] Historian starting ...
+2025-06-18 17:31:23.943 +00:00 [INF] Historian 'Settings' path configured as /historian/settings
+2025-06-18 17:31:23.944 +00:00 [INF] Historian 'Data' set to /historian/data
+2025-06-18 17:31:23.945 +00:00 [INF] Historian 'Logs' path configured as /historian/logs
+2025-06-18 17:31:23.946 +00:00 [INF] Historian 'Auth' disabled
+2025-06-18 17:31:24.018 +00:00 [INF] Historian 2266-1704-0618-2025
+2025-06-18 17:31:24.051 +00:00 [INF] Dataset "Starting"
+2025-06-18 17:31:24.072 +00:00 [INF] Dataset blocks initialized: 2 in 18ms
+2025-06-18 17:31:24.105 +00:00 [INF] Dataset object blocks initialized: 1 in 32ms
+2025-06-18 17:31:24.130 +00:00 [INF] Dataset tag data initialized: 47 tags in 24ms
+2025-06-18 17:31:24.154 +00:00 [INF] Dataset tag info and last value initialized: 47 tags in 23ms
+2025-06-18 17:31:24.171 +00:00 [INF] Dataset "Running"
+2025-06-18 17:31:24.172 +00:00 [INF] Historian started
+2025-06-18 17:31:24.180 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-06-18 17:31:24.252 +00:00 [WRN] No XML encryptor configured. Key {79b20ddc-5de4-4268-8818-f7e3cd3ec7f7} may be persisted to storage in unencrypted form.
+2025-06-18 17:31:24.278 +00:00 [INF] Historian tags: 36
+2025-06-18 17:31:24.279 +00:00 [INF] Historian size: 0.0 GB
+2025-06-18 17:31:24.279 +00:00 [INF] Historian age: 20257.7 days
+2025-06-18 17:31:24.300 +00:00 [INF] Historian environment OS: Debian GNU/Linux 12 (bookworm)
+2025-06-18 17:31:24.301 +00:00 [INF] Historian environment architecture: "X64"
+2025-06-18 17:31:24.302 +00:00 [INF] Historian environment framework: .NET 8.0.16
+2025-06-18 17:31:24.303 +00:00 [INF] Historian environment: Docker
+2025-06-18 17:31:24.304 +00:00 [INF] Historian space available: 989.0 GB (98.3%)
+2025-06-18 17:31:24.325 +00:00 [INF] Process listening on http://0.0.0.0:4511
+2025-06-18 17:31:24.853 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-18 17:31:56.709 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {7632f425-c583-4e56-9c78-3ec36a282d66} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-06-18 22:15:23.128 +00:00 [WRN] Failed to determine size of dataset: Could not find file '/historian/data/UNS Demo/data/2025-06-18 22.0000.object.temp'.

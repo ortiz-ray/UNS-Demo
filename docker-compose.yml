@@ -1,0 +1,255 @@
+x-default-logging: &default-logging
+  logging:
+    driver: json-file
+    options:
+      max-size: '100m'
+      max-file: '5'
+
+x-ignition-opts: &ignition-opts
+  <<: *default-logging
+  image: inductiveautomation/ignition:8.1.48
+
+services:
+
+  traefik:
+    image: traefik:v3.4
+    container_name: traefik
+    command:
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--entrypoints.web.address=:80"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+    ports:
+      - "80:80"
+      - "8080:8080"  # Traefik dashboard
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`proxy.localtest.me`)"
+      - "traefik.http.routers.traefik.entrypoints=web"
+      - "traefik.http.routers.traefik.service=api@internal"
+    networks:
+      - uns-network
+
+  frontend-gateway:
+    <<: *ignition-opts
+    container_name: ignition-frontend
+    hostname: frontend
+    command: >
+      -n frontend-gateway
+      -m 4096
+      wrapper.java.initmemory=1024
+      -XX:MaxGCPauseMillis=50 
+    environment:
+      - GATEWAY_ADMIN_USERNAME=admin
+      - GATEWAY_ADMIN_PASSWORD=password
+      - IGNITION_EDITION=standard
+      - ACCEPT_IGNITION_EULA=Y
+      - TZ=America/New_York
+      - DISABLE_QUICKSTART=true
+    volumes:
+      - frontend_data:/usr/local/bin/ignition/data
+      - ./ignition-modules/MQTT-Engine-signed.modl:/usr/local/bin/ignition/user-lib/modules/MQTT-Engine-signed.modl
+      - ./ignition-modules/MQTT-Transmission-signed.modl:/usr/local/bin/ignition/user-lib/modules/MQTT-Transmission-signed.modl
+    networks:
+      - uns-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`frontend.localtest.me`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.services.frontend.loadbalancer.server.port=8088"
+
+  backend-gateway-1:
+    <<: *ignition-opts
+    container_name: ignition-backend-1
+    hostname: backend1
+    command: >
+      -n backend-gateway-1
+      -m 2048
+      wrapper.java.initmemory=1024
+      -XX:MaxGCPauseMillis=50
+    environment:
+      - GATEWAY_ADMIN_PASSWORD=password
+      - ACCEPT_IGNITION_EULA=Y
+      - IGNITION_EDITION=standard
+      - TZ=America/New_York
+      - DISABLE_QUICKSTART=true
+      - GATEWAY_NETWORK_0_HOST=frontend-gateway
+      - GATEWAY_NETWORK_0_PORT=8060
+      - GATEWAY_NETWORK_0_ENABLESSL=true
+    volumes:
+      - backend1_data:/usr/local/bin/ignition/data
+      - ./ignition-modules/MQTT-Transmission-signed.modl:/usr/local/bin/ignition/user-lib/modules/MQTT-Transmission-signed.modl
+    networks:
+      - uns-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend1.rule=Host(`backend1.localtest.me`)"
+      - "traefik.http.routers.backend1.entrypoints=web"
+      - "traefik.http.services.backend1.loadbalancer.server.port=8088"
+
+  backend-gateway-2:
+    <<: *ignition-opts
+    container_name: ignition-backend-2
+    hostname: backend2
+    command: >
+      -n backend-gateway-2
+      -m 2048
+      wrapper.java.initmemory=1024
+      -XX:MaxGCPauseMillis=50
+    environment:
+      - GATEWAY_ADMIN_PASSWORD=password
+      - ACCEPT_IGNITION_EULA=Y
+      - IGNITION_EDITION=standard
+      - TZ=America/New_York
+      - DISABLE_QUICKSTART=true
+      - GATEWAY_NETWORK_0_HOST=frontend-gateway
+      - GATEWAY_NETWORK_0_PORT=8060
+      - GATEWAY_NETWORK_0_ENABLESSL=true
+    volumes:
+      - backend2_data:/usr/local/bin/ignition/data
+      - ./ignition-modules/MQTT-Transmission-signed.modl:/usr/local/bin/ignition/user-lib/modules/MQTT-Transmission-signed.modl
+    networks:
+      - uns-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend2.rule=Host(`backend2.localtest.me`)"
+      - "traefik.http.routers.backend2.entrypoints=web"
+      - "traefik.http.services.backend2.loadbalancer.server.port=8088"
+
+  node-red:
+    image: nodered/node-red:latest
+    container_name: node-red-v2
+    ports:
+      - "1880:1880"
+      - "4840:4840"
+    volumes:
+      - ./node_red_data:/data
+      - ./certs:/certs
+    depends_on:
+      - mosquitto
+      - frontend-gateway
+    networks:
+      - uns-network
+    # https://localhost:1880
+
+  mosquitto:
+    container_name: mosquitto-v2
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    networks:
+      - uns-network
+
+  mysql:
+    image: mysql:8.3
+    container_name: mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=mes_core
+      - MYSQL_USER=python
+      - MYSQL_PASSWORD=password
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - uns-network
+
+  sqltojson:
+    image: sqltojson
+    container_name: sqltojson
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=python
+      - DB_PASSWORD=password
+      - DB_NAME=mes_core
+      - MQTT_HOST=mosquitto
+      - MQTT_PORT=1883
+      - MQTT_TOPIC=Carolina Press Co/Fort Mill/Press/Press 103/Schedule
+      - QUERY_INTERVAL=5
+      - QUERY_SQL=SELECT * FROM mes_core.schedule where lineID = 6;
+    depends_on:
+      - mosquitto
+      - mysql
+    networks:
+      - uns-network
+
+  historian:
+    image: timebase/historian:latest
+    hostname: historian
+    container_name: historian
+    ports:
+      - "4511:4511"
+      - "4512:4512"
+    restart: unless-stopped
+    volumes:
+      - ./timebase_data/historian:/historian
+    environment:
+      - Settings=/historian/settings
+      - Data=/historian/data
+      - Logs=/historian/logs
+    networks:
+      - uns-network
+ 
+  explorer:
+    image: timebase/explorer:latest
+    hostname: explorer
+    container_name: explorer
+    ports:
+      - "4531:4531"
+      - "4532:4532"
+    restart: unless-stopped
+    volumes:
+      - ./timebase_data/explorer:/explorer
+    environment:
+      - Settings=/explorer/settings
+      - Config=/explorer/config
+      - Data=/explorer/data
+      - Logs=/explorer/logs
+    networks:
+      - uns-network
+ 
+  sparkplugCollector:
+    image: timebase/collector:latest
+    hostname: sparkplugb
+    container_name: sparkplugb
+    ports:
+      - "4527:4521"
+      - "4528:4522"
+    restart: unless-stopped
+    volumes:
+      - ./timebase_data/sparkplugb:/sparkplugb
+    environment:
+      - Active=true
+      - Settings=/sparkplugb/settings
+      - Config=/sparkplugb/config
+      - Data=/sparkplugb/data
+      - Logs=/sparkplugb/logs
+    networks:
+      - uns-network
+
+volumes:
+  certs:
+  node_red_data:
+  frontend_data:
+  backend1_data:
+  backend2_data:
+  mysql_data:
+  historian:
+  explorer:
+  sparkplugb:
+
+networks:
+  uns-network:
+    driver: bridge

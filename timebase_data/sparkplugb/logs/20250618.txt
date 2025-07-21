@@ -1,0 +1,130 @@
+2025-06-18 17:22:39.426 +00:00 [WRN] Collector is running, but 'Active' setting is set to false, data collection is paused
+2025-06-18 17:22:39.493 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-06-18 17:22:39.519 +00:00 [WRN] No XML encryptor configured. Key {c35f40a6-8b7f-4e1c-96d9-0eb466f59c14} may be persisted to storage in unencrypted form.
+2025-06-18 17:22:39.543 +00:00 [INF] Process listening on http://0.0.0.0:4521
+2025-06-18 17:22:40.626 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-18 17:22:54.037 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {7632f425-c583-4e56-9c78-3ec36a282d66} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-06-18 17:24:55.309 +00:00 [INF] Collector stopping ...
+2025-06-18 17:24:55.310 +00:00 [INF] Collector stopped
+2025-06-18 17:24:57.510 +00:00 [INF] Collector start requested ...
+2025-06-18 17:24:57.537 +00:00 [INF] Collector 'Settings' path configured as /sparkplugb/settings
+2025-06-18 17:24:57.538 +00:00 [INF] Collector 'Plugins' path configured as /plugins
+2025-06-18 17:24:57.538 +00:00 [INF] Collector 'Config' path configured as /sparkplugb/config
+2025-06-18 17:24:57.538 +00:00 [INF] Collector 'Data' path configured as /sparkplugb/data
+2025-06-18 17:24:57.538 +00:00 [INF] Collector 'Logs' path configured as /sparkplugb/logs
+2025-06-18 17:24:57.539 +00:00 [INF] Collector 'Auth' disabled
+2025-06-18 17:24:57.539 +00:00 [INF] Collector 'Dataset' configured as UNS Demo
+2025-06-18 17:24:57.603 +00:00 [WRN] Client Local failed to refresh tag cache for dataset UNS Demo: Response status code does not indicate success: 404 (Not Found).
+2025-06-18 17:24:57.683 +00:00 [INF] Collector 5763-1724-0618-2025
+2025-06-18 17:24:57.770 +00:00 [INF] Collector plugin SparkplugB starting ...
+2025-06-18 17:24:57.791 +00:00 [INF] SparkplugB plugin creating connection to tcp://mosquitto:1883 ...
+2025-06-18 17:24:57.823 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-06-18 17:24:57.889 +00:00 [FTL] Collector plugin SparkplugB failed to start: Error while connecting host 'Unspecified/tcp://mosquitto:1883'.
+2025-06-18 17:24:57.895 +00:00 [WRN] Disconnected from MQTT Broker, trying to reconnect
+2025-06-18 17:24:57.920 +00:00 [WRN] No XML encryptor configured. Key {275a31c9-99f2-44dc-b25c-2d5e71a70d69} may be persisted to storage in unencrypted form.
+2025-06-18 17:24:58.013 +00:00 [WRN] Client Local failed to send status data to "http://historian:4511/": Response status code does not indicate success: 404 (Not Found).
+2025-06-18 17:24:58.014 +00:00 [WRN] Collector plugin disconnected, sending status to historian[0]
+2025-06-18 17:24:58.018 +00:00 [INF] Process listening on http://0.0.0.0:4521
+2025-06-18 17:24:58.431 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-18 17:25:00.289 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {c35f40a6-8b7f-4e1c-96d9-0eb466f59c14} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-06-18 17:25:27.989 +00:00 [INF] SparkplugB plugin creating connection to tcp://mosquitto:1883 ...
+2025-06-18 17:25:27.994 +00:00 [WRN] Disconnected from MQTT Broker, trying to reconnect
+2025-06-18 17:25:28.002 +00:00 [WRN] Collector plugin disconnected, sending status to historian[0]
+2025-06-18 17:25:57.998 +00:00 [INF] SparkplugB plugin creating connection to tcp://mosquitto:1883 ...
+2025-06-18 17:25:57.999 +00:00 [WRN] Disconnected from MQTT Broker, trying to reconnect
+2025-06-18 17:25:58.002 +00:00 [WRN] Collector plugin disconnected, sending status to historian[0]
+2025-06-18 17:26:28.004 +00:00 [INF] SparkplugB plugin creating connection to tcp://mosquitto:1883 ...
+2025-06-18 17:26:28.021 +00:00 [WRN] Disconnected from MQTT Broker, trying to reconnect
+2025-06-18 17:26:28.035 +00:00 [WRN] Collector plugin disconnected, sending status to historian[0]
+2025-06-18 17:26:58.028 +00:00 [INF] SparkplugB plugin creating connection to tcp://mosquitto:1883 ...
+2025-06-18 17:26:58.033 +00:00 [WRN] Disconnected from MQTT Broker, trying to reconnect
+2025-06-18 17:26:58.037 +00:00 [WRN] Collector plugin disconnected, sending status to historian[0]
+2025-06-18 17:27:28.027 +00:00 [INF] SparkplugB plugin creating connection to tcp://mosquitto:1883 ...
+2025-06-18 17:27:28.029 +00:00 [WRN] Disconnected from MQTT Broker, trying to reconnect
+2025-06-18 17:27:28.031 +00:00 [WRN] Collector plugin disconnected, sending status to historian[0]
+2025-06-18 17:27:58.036 +00:00 [INF] SparkplugB plugin creating connection to tcp://mosquitto:1883 ...
+2025-06-18 17:27:58.039 +00:00 [WRN] Disconnected from MQTT Broker, trying to reconnect
+2025-06-18 17:27:58.042 +00:00 [WRN] Collector plugin disconnected, sending status to historian[0]
+2025-06-18 17:28:28.030 +00:00 [INF] SparkplugB plugin creating connection to tcp://mosquitto:1883 ...
+2025-06-18 17:28:28.034 +00:00 [WRN] Disconnected from MQTT Broker, trying to reconnect
+2025-06-18 17:28:28.036 +00:00 [WRN] Collector plugin disconnected, sending status to historian[0]
+2025-06-18 17:28:36.759 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {7632f425-c583-4e56-9c78-3ec36a282d66} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-06-18 17:28:58.036 +00:00 [INF] SparkplugB plugin creating connection to tcp://mosquitto:1883 ...
+2025-06-18 17:28:58.041 +00:00 [WRN] Disconnected from MQTT Broker, trying to reconnect
+2025-06-18 17:28:58.044 +00:00 [WRN] Collector plugin disconnected, sending status to historian[0]
+2025-06-18 17:29:28.049 +00:00 [INF] SparkplugB plugin creating connection to tcp://mosquitto:1883 ...
+2025-06-18 17:29:28.051 +00:00 [WRN] Disconnected from MQTT Broker, trying to reconnect
+2025-06-18 17:29:28.067 +00:00 [WRN] Collector plugin disconnected, sending status to historian[0]
+2025-06-18 17:29:37.918 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {7632f425-c583-4e56-9c78-3ec36a282d66} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-06-18 17:29:52.782 +00:00 [INF] Client Local buffer sending initializer cancelled
+2025-06-18 17:29:52.785 +00:00 [INF] Collector stopping ...
+2025-06-18 17:29:52.789 +00:00 [INF] SparkplugB plugin disconnecting ...
+2025-06-18 17:29:52.792 +00:00 [INF] SparkplugB plugin disconnected
+2025-06-18 17:29:52.797 +00:00 [INF] Collector sending stopped status to historian[0]
+2025-06-18 17:29:52.804 +00:00 [INF] Collector stopped
+2025-06-18 17:29:54.630 +00:00 [INF] Collector start requested ...
+2025-06-18 17:29:54.665 +00:00 [INF] Collector 'Settings' path configured as /sparkplugb/settings
+2025-06-18 17:29:54.666 +00:00 [INF] Collector 'Plugins' path configured as /plugins
+2025-06-18 17:29:54.667 +00:00 [INF] Collector 'Config' path configured as /sparkplugb/config
+2025-06-18 17:29:54.669 +00:00 [INF] Collector 'Data' path configured as /sparkplugb/data
+2025-06-18 17:29:54.670 +00:00 [INF] Collector 'Logs' path configured as /sparkplugb/logs
+2025-06-18 17:29:54.671 +00:00 [INF] Collector 'Auth' disabled
+2025-06-18 17:29:54.672 +00:00 [INF] Collector 'Dataset' configured as UNS Demo
+2025-06-18 17:29:54.738 +00:00 [WRN] Client Local failed to refresh tag cache for dataset UNS Demo: Response status code does not indicate success: 404 (Not Found).
+2025-06-18 17:29:54.792 +00:00 [INF] Collector 5763-1724-0618-2025
+2025-06-18 17:29:54.861 +00:00 [INF] Collector plugin SparkplugB starting ...
+2025-06-18 17:29:54.866 +00:00 [INF] SparkplugB plugin creating connection to mosquitto:1883 ...
+2025-06-18 17:29:54.882 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+2025-06-18 17:29:54.895 +00:00 [INF] SparkplugB plugin connected to mosquitto:1883, subscribing ...
+2025-06-18 17:29:54.902 +00:00 [INF] Collector plugin SparkplugB started
+2025-06-18 17:29:54.904 +00:00 [WRN] No XML encryptor configured. Key {174b2e5d-a9c9-4452-9481-cdec1cfdd879} may be persisted to storage in unencrypted form.
+2025-06-18 17:29:54.967 +00:00 [INF] Process listening on http://0.0.0.0:4521
+2025-06-18 17:29:54.967 +00:00 [INF] Collector started
+2025-06-18 17:29:55.867 +00:00 [WRN] SparkplugB plugin Data Received before birth, request rebirth on topic spBv1.0/G2/DDATA/E2/D1
+2025-06-18 17:29:55.875 +00:00 [WRN] SparkplugB plugin Data Received before birth, request rebirth on topic spBv1.0/G1/DDATA/E1/D1
+2025-06-18 17:29:55.876 +00:00 [WRN] SparkplugB plugin Data Received before birth, request rebirth on topic spBv1.0/G3/DDATA/E3/D1
+2025-06-18 17:29:55.911 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-18 17:30:01.279 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {275a31c9-99f2-44dc-b25c-2d5e71a70d69} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-06-18 17:30:04.242 +00:00 [WRN] SparkplugB plugin Data Received before birth, request rebirth on topic spBv1.0/G4/DDATA/E4/D1
+2025-06-18 21:36:14.874 +00:00 [WRN] Client Local failed to send chunk for dataset UNS Demo. Dataset buffer contains 41 points. The request was canceled due to the configured HttpClient.Timeout of 30 seconds elapsing.
+2025-06-18 22:01:20.734 +00:00 [INF] Client Local successfully sent chunk for dataset UNS Demo. Dataset buffer contains 0 points.
