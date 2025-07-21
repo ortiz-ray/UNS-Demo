@@ -1,0 +1,7 @@
+# Ignore everything in node_red_data
+node_red_data/*
+
+# But include critical config files
+!node_red_data/flows*.json
+!node_red_data/settings.js
+!node_red_data/.config.json

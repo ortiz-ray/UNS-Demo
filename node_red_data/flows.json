@@ -1,0 +1,761 @@
+[
+    {
+        "id": "1253559b9a061a18",
+        "type": "tab",
+        "label": "SpB Demo",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0adbdc6f428d3045",
+        "type": "tab",
+        "label": "MQTT to BigQuery",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ce9e6cdf4237d186",
+        "type": "group",
+        "z": "1253559b9a061a18",
+        "name": "Legacy Non-SpB",
+        "style": {
+            "fill": "#ffefbf",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "58fe69eb7f1b067d",
+            "3a463fdb3b7f1393",
+            "d2afe99597a229da",
+            "cfcd65d575b4272d",
+            "9a6f925d91499c84",
+            "9231915e49826189"
+        ],
+        "x": 34,
+        "y": 419,
+        "w": 1152,
+        "h": 142
+    },
+    {
+        "id": "0bdc4d11f172a074",
+        "type": "group",
+        "z": "1253559b9a061a18",
+        "name": "IIoT Device (MES)",
+        "style": {
+            "fill": "#ffefbf",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "f444e10907243169",
+            "55a21c89afb9dee6",
+            "8ef88ccf75bd7940",
+            "07d77884660ba378"
+        ],
+        "x": 34,
+        "y": 279,
+        "w": 1152,
+        "h": 82
+    },
+    {
+        "id": "6ba10eae19f27c83",
+        "type": "mqtt-sparkplug-broker",
+        "name": "Mosquitto",
+        "deviceGroup": "G4",
+        "eonName": "E4",
+        "broker": "mosquitto",
+        "port": 1883,
+        "clientid": "",
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "enableStoreForward": false,
+        "compressAlgorithm": "",
+        "aliasMetrics": false,
+        "useTemplates": true,
+        "manualEoNBirth": false,
+        "primaryScada": ""
+    },
+    {
+        "id": "9a96d6f1e927d2e4",
+        "type": "mqtt-broker",
+        "name": "Mosquitto",
+        "broker": "Mosquitto",
+        "port": "1883",
+        "clientid": "RebirthClient",
+        "autoConnect": true,
+        "usetls": false,
+        "compatmode": false,
+        "protocolVersion": 4,
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f334516e5710db2b",
+        "type": "mqtt-broker",
+        "name": "HiveMQ Cloud",
+        "broker": "ssl://7cde0c6c292d4c948955bda289c6e8ba.s1.eu.hivemq.cloud",
+        "port": "883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "2a3102b75b01076a",
+        "type": "google-cloud-credentials",
+        "name": "Service Account"
+    },
+    {
+        "id": "55a21c89afb9dee6",
+        "type": "mqtt sparkplug device",
+        "z": "1253559b9a061a18",
+        "g": "0bdc4d11f172a074",
+        "name": "D1",
+        "metrics": {
+            "American Steel/Charlotte/Rolling/MES/Lot": {
+                "dataType": "String"
+            },
+            "American Steel/Charlotte/Rolling/MES/Customer": {
+                "dataType": "String"
+            },
+            "American Steel/Charlotte/Rolling/MES/Quantity": {
+                "dataType": "Int32"
+            },
+            "American Steel/Charlotte/Rolling/MES/Path": {
+                "dataType": "String"
+            }
+        },
+        "broker": "6ba10eae19f27c83",
+        "birthImmediately": true,
+        "bufferDevice": false,
+        "x": 770,
+        "y": 320,
+        "wires": [
+            [
+                "f444e10907243169"
+            ]
+        ]
+    },
+    {
+        "id": "f1d88e5b0793ad41",
+        "type": "inject",
+        "z": "1253559b9a061a18",
+        "name": "Simulate PLC Tags",
+        "props": [],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 1,
+        "topic": "",
+        "x": 160,
+        "y": 1280,
+        "wires": [
+            [
+                "f87a205ba07c438a"
+            ]
+        ]
+    },
+    {
+        "id": "f87a205ba07c438a",
+        "type": "function",
+        "z": "1253559b9a061a18",
+        "name": "Generate Tag Values",
+        "func": "msg.payload = [\n  {\n    messageType: \"variable\",\n    variableName: \"SimPLC/Temperature\",\n    variableValue: Math.floor(Math.random() * 100)\n  },\n  {\n    messageType: \"variable\",\n    variableName: \"SimPLC/Pressure\",\n    variableValue: Math.floor(Math.random() * 50) + 10\n  }\n];\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 1280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6e5e2c0ab8a25a33",
+        "type": "inject",
+        "z": "1253559b9a061a18",
+        "name": "Update PLC Tags",
+        "props": [],
+        "repeat": "3",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 1,
+        "x": 170,
+        "y": 1460,
+        "wires": [
+            [
+                "75f74c83bce4a6d7"
+            ]
+        ]
+    },
+    {
+        "id": "75f74c83bce4a6d7",
+        "type": "function",
+        "z": "1253559b9a061a18",
+        "name": "Simulate Tag Values",
+        "func": "msg.payload = {\n    \"SimPLC/Temperature\": Math.floor(Math.random() * 100),\n    \"SimPLC/Pressure\": Math.floor(Math.random() * 50) + 10\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 1460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "652b050cf52a98c9",
+        "type": "opcua-compact-server-refresh",
+        "z": "1253559b9a061a18",
+        "port": 54840,
+        "endpoint": "",
+        "productUri": "",
+        "acceptExternalCommands": true,
+        "maxAllowedSessionNumber": 10,
+        "maxConnectionsPerEndpoint": 10,
+        "maxAllowedSubscriptionNumber": 100,
+        "alternateHostname": "",
+        "name": "",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "allowAnonymous": true,
+        "individualCerts": false,
+        "isAuditing": false,
+        "serverDiscovery": true,
+        "users": [],
+        "xmlsetsOPCUA": [],
+        "publicCertificateFile": "",
+        "privateCertificateFile": "",
+        "registerServerMethod": 1,
+        "discoveryServerEndpointUrl": "",
+        "capabilitiesForMDNS": "",
+        "maxNodesPerRead": 1000,
+        "maxNodesPerWrite": 1000,
+        "maxNodesPerHistoryReadData": 100,
+        "maxNodesPerBrowse": 3000,
+        "maxBrowseContinuationPoints": 10,
+        "maxHistoryContinuationPoints": 10,
+        "delayToInit": 1000,
+        "delayToClose": 200,
+        "serverShutdownTimeout": 100,
+        "addressSpaceScript": "function(server, addressSpace, opcua, eventObjects, done) {\n\n  node.warn(\"Starting OPCUA Server\");\n\n  // Debug Statements to verify eventObjects and sandboxFlowContext\n  if (!opcua) {\n    node.error(\"OPCUA module is not available.\");\n    return done(new Error(\"OPCUA module is undefined.\"));\n  }\n\n  const namespace = addressSpace.getOwnNamespace();\n\n  const Variant = opcua.Variant;\n  const DataType = opcua.DataType;\n  const VariantArrayType = opcua.VariantArrayType;\n  const DataValue = opcua.DataValue;\n  const standardUnits = opcua.standardUnits;\n\n  //Define ISA-95 folder structure for UNS\n  const rootFolder = addressSpace.findNode(\"RootFolder\");\n\n  const enterprise = namespace.addFolder(rootFolder.objects, { browseName: \"sji\" });\n\n  const site = namespace.addFolder(enterprise, { browseName: \"garfield\" });\n\n  const area = namespace.addFolder(site, { browseName: \"bop\" });\n\n  const subsystem = namespace.addFolder(area, { browseName: \"flare\" });\n  /*\n   * variation 0:\n   * ------------\n   *\n   * Add a variable in folder using a raw Variant.\n   * Use this variation when the variable has to be read or written by the OPCUA clients\n   */\n  const variable0 = namespace.addVariable({\n    organizedBy: subsystem,\n    browseName: \"FanSpeed\",\n    nodeId: \"ns=1;s=FanSpeed\",\n    dataType: \"Double\",\n    value: new Variant({ dataType: DataType.Double, value: 1000.0 })\n  });\n\n  setInterval(function () {\n    const fluctuation = Math.random() * 100 - 50;\n    variable0.setValueFromSource(new Variant({ dataType: DataType.Double, value: 1000.0 + fluctuation }));\n  }, 10);\n  \n  /*\n   * variation 1:\n   * ------------\n   *\n   * Add a variable in folder using a single get function which returns the up to date variable value in Variant.\n   * The server will set the timestamps automatically for us.\n   * Use this variation when the variable value is controlled by the getter function\n   * Avoid using this variation if the variable has to be made writable, as the server will call the getter\n   * function prior to returning its value upon client read requests.\n   */\n  namespace.addVariable({\n    organizedBy: subsystem,\n    browseName: \"PumpSpeed\",\n    nodeId: \"ns=1;s=PumpSpeed\",\n    dataType: \"Double\",\n    value: {\n      /**\n       * returns the  current value as a Variant\n       * @method get\n       * @return {Variant}\n       */\n      get: function () {\n        const pump_speed = 200 + 100 * Math.sin(Date.now() / 10000);\n        return new Variant({ dataType: DataType.Double, value: pump_speed });\n      }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: subsystem,\n    browseName: \"SomeDate\",\n    nodeId: \"ns=1;s=SomeDate\",\n    dataType: \"DateTime\",\n    value: {\n      get: function () {\n        return new Variant({ dataType: DataType.DateTime, value: new Date(Date.UTC(2016, 9, 13, 8, 40, 0)) });\n      }\n    }\n  });\n\n  /*\n * variation 2:\n * ------------\n *\n * Add a variable in folder. This variable gets its value and source timestamps from the provided function.\n * The value and source timestamps are held in a external object.\n * The value and source timestamps are updated on a regular basis using a timer function.\n */\n  const external_value_with_sourceTimestamp = new DataValue({\n    value: new Variant({ dataType: DataType.Double, value: 10.0 }),\n    sourceTimestamp: null,\n    sourcePicoseconds: 0\n  });\n  setInterval(function () {\n    external_value_with_sourceTimestamp.value.value = Math.random();\n    external_value_with_sourceTimestamp.sourceTimestamp = new Date();\n  }, 1000);\n\n  namespace.addVariable({\n    organizedBy: subsystem,\n    browseName: \"Pressure\",\n    nodeId: \"ns=1;s=Pressure\",\n    dataType: \"Double\",\n    value: {\n      timestamped_get: function () {\n        return external_value_with_sourceTimestamp;\n      }\n    }\n  });\n  /*\n   * variation 3:\n   * ------------\n   *\n   * Add a variable in a folder. This variable gets its value  and source timestamps from the provided\n   * asynchronous function.\n   * The asynchronous function is called only when needed by the opcua Server read services and monitored item services\n   *\n   */\n\n  namespace.addVariable({\n    organizedBy: subsystem,\n    browseName: \"Temperature\",\n    nodeId: \"s=Temperature\",\n    dataType: \"Double\",\n\n    value: {\n      refreshFunc: function (callback) {\n        const temperature = 20 + 10 * Math.sin(Date.now() / 10000);\n        const value = new Variant({ dataType: DataType.Double, value: temperature });\n        const sourceTimestamp = new Date();\n\n        // simulate a asynchronous behaviour\n        setTimeout(function () {\n          callback(null, new DataValue({ value: value, sourceTimestamp: sourceTimestamp }));\n        }, 100);\n      }\n    }\n  });\n\n  // UAAnalogItem\n  // add a UAAnalogItem\n  const analogNode = namespace.addAnalogDataItem({\n    organizedBy: subsystem,\n\n    nodeId: \"s=TemperatureAnalogItem\",\n    browseName: \"TemperatureAnalogItem\",\n    definition: \"(tempA -25) + tempB\",\n    valuePrecision: 0.5,\n    engineeringUnitsRange: { low: 100, high: 200 },\n    instrumentRange: { low: -100, high: +200 },\n    engineeringUnits: standardUnits.degree_celsius,\n    dataType: \"Double\",\n    value: {\n      get: function () {\n        return new Variant({ dataType: DataType.Double, value: Math.random() + 19.0 });\n      }\n    }\n  });\n\n  const m3x3 = namespace.addVariable({\n    organizedBy: addressSpace.rootFolder.objects,\n    nodeId: \"s=Matrix\",\n    browseName: \"Matrix\",\n    dataType: \"Double\",\n    valueRank: 2,\n    arrayDimensions: [3, 3],\n    value: {\n      get: function () {\n        return new Variant({\n          dataType: DataType.Double,\n          arrayType: VariantArrayType.Matrix,\n          dimensions: [3, 3],\n          value: [1, 2, 3, 4, 5, 6, 7, 8, 9]\n        });\n      }\n    }\n  });\n\n  const xyz = namespace.addVariable({\n    organizedBy: addressSpace.rootFolder.objects,\n    nodeId: \"s=Position\",\n    browseName: \"Position\",\n    dataType: \"Double\",\n    valueRank: 1,\n    arrayDimensions: null,\n    value: {\n      get: function () {\n        return new Variant({\n          dataType: DataType.Double,\n          arrayType: VariantArrayType.Array,\n          value: [1, 2, 3, 4]\n        });\n      }\n    }\n  });\n  \n  //------------------------------------------------------------------------------\n  // Add a view\n  //------------------------------------------------------------------------------\n  const view = namespace.addView({\n    organizedBy: rootFolder.views,\n    browseName: \"MyView\"\n  });\n\n  view.addReference({\n    referenceType: \"Organizes\",\n    nodeId: analogNode.nodeId\n  });\n  node.warn(\"Construction of new address space for OPC UA done\");\n  done();\n}",
+        "x": 410,
+        "y": 1580,
+        "wires": []
+    },
+    {
+        "id": "f444e10907243169",
+        "type": "debug",
+        "z": "1253559b9a061a18",
+        "g": "0bdc4d11f172a074",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "3a463fdb3b7f1393",
+        "type": "comment",
+        "z": "1253559b9a061a18",
+        "g": "ce9e6cdf4237d186",
+        "name": "simulate real-time PLC data & store in context flow memory",
+        "info": "",
+        "x": 410,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "d2afe99597a229da",
+        "type": "comment",
+        "z": "1253559b9a061a18",
+        "g": "ce9e6cdf4237d186",
+        "name": "OPC UA Server Publishing Simulated PLC Data",
+        "info": "",
+        "x": 980,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "58fe69eb7f1b067d",
+        "type": "opcua-compact-server-refresh",
+        "z": "1253559b9a061a18",
+        "g": "ce9e6cdf4237d186",
+        "port": "4840",
+        "endpoint": "",
+        "productUri": "",
+        "acceptExternalCommands": true,
+        "maxAllowedSessionNumber": 10,
+        "maxConnectionsPerEndpoint": 10,
+        "maxAllowedSubscriptionNumber": 100,
+        "alternateHostname": "",
+        "name": "",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "allowAnonymous": true,
+        "individualCerts": false,
+        "isAuditing": false,
+        "serverDiscovery": true,
+        "users": [],
+        "xmlsetsOPCUA": [],
+        "publicCertificateFile": "",
+        "privateCertificateFile": "",
+        "registerServerMethod": 1,
+        "discoveryServerEndpointUrl": "opc.tcp://node-red:4840",
+        "capabilitiesForMDNS": "",
+        "maxNodesPerRead": 1000,
+        "maxNodesPerWrite": 1000,
+        "maxNodesPerHistoryReadData": 100,
+        "maxNodesPerBrowse": 3000,
+        "maxBrowseContinuationPoints": 10,
+        "maxHistoryContinuationPoints": 10,
+        "delayToInit": 1000,
+        "delayToClose": 200,
+        "serverShutdownTimeout": 100,
+        "addressSpaceScript": "function(server, addressSpace, opcua, eventObjects, done) {\n\n  node.warn(\"Starting OPCUA Server\");\n\n  if (!opcua) {\n    node.error(\"OPCUA module is not available.\");\n    return done(new Error(\"OPCUA module is undefined.\"));\n  }\n\n  const namespace = addressSpace.getOwnNamespace();\n  const Variant = opcua.Variant;\n  const DataType = opcua.DataType;\n\n  if (!eventObjects.sandboxFlowContext || typeof eventObjects.sandboxFlowContext.set !== 'function') {\n    node.error(\"sandboxFlowContext is not available in eventObjects.\");\n    return done(new Error(\"sandboxFlowContext is undefined.\"));\n  }\n\n  const ctx = eventObjects.sandboxFlowContext;\n\n  // Stand 1 Tags\n  ctx.set(\"Stand1.Entry_Tension_OK\", false);\n  ctx.set(\"Stand1.Exit_Tension_OK\", false);\n  ctx.set(\"Stand1.Roll_Speed_RPM\", 0);\n  ctx.set(\"Stand1.Motor_Torque\", 0);\n  ctx.set(\"Stand1.Motor_Amps\", 0);\n  ctx.set(\"Stand1.Roll_Gap_mm\", 0);\n  ctx.set(\"Stand1.Running\", false);\n  ctx.set(\"Stand1.State\", 0);\n  ctx.set(\"Stand1.Fault\", false);\n\n  // Caster Tags\n  ctx.set(\"Caster.Mold_Level\", 0);\n  ctx.set(\"Caster.SprayWater_Flow\", 0);\n  ctx.set(\"Caster.Tundish_Temp\", 0);\n\n  // Furnace Tags\n  ctx.set(\"Furnace.Zone1_Temp\", 0);\n  ctx.set(\"Furnace.Zone2_Temp\", 0);\n  ctx.set(\"Furnace.Burner_Status\", false);\n\n  coreServer.debugLog(\"init dynamic address space\");\n  const rootFolder = addressSpace.findNode(\"RootFolder\");\n  node.warn(\"Constructing new address space for OPC UA\");\n\n  const deviceFolder = namespace.addFolder(rootFolder.objects, { browseName: \"SimulatedDevices\" });\n\n  // --- Add Stand1 Folder ---\n  const stand1Folder = namespace.addFolder(deviceFolder, { browseName: \"Stand1\" });\n\n  namespace.addVariable({\n    organizedBy: stand1Folder,\n    browseName: \"Entry Tension OK\",\n    nodeId: \"ns=1;s=Entry_Tension_OK\",\n    dataType: \"Boolean\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Boolean, value: ctx.get(\"Stand1.Entry_Tension_OK\") }),\n      set: (v) => { ctx.set(\"Stand1.Entry_Tension_OK\", v.value); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: stand1Folder,\n    browseName: \"Exit Tension OK\",\n    nodeId: \"ns=1;s=Exit_Tension_OK\",\n    dataType: \"Boolean\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Boolean, value: ctx.get(\"Stand1.Exit_Tension_OK\") }),\n      set: (v) => { ctx.set(\"Stand1.Exit_Tension_OK\", v.value); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: stand1Folder,\n    browseName: \"Rolling Speed (RPM)\",\n    nodeId: \"ns=1;s=Roll_Speed_RPM\",\n    dataType: \"Float\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Float, value: ctx.get(\"Stand1.Roll_Speed_RPM\") }),\n      set: (v) => { ctx.set(\"Stand1.Roll_Speed_RPM\", parseFloat(v.value)); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: stand1Folder,\n    browseName: \"Motor Torque\",\n    nodeId: \"ns=1;s=Motor_Torque\",\n    dataType: \"Float\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Float, value: ctx.get(\"Stand1.Motor_Torque\") }),\n      set: (v) => { ctx.set(\"Stand1.Motor_Torque\", parseFloat(v.value)); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: stand1Folder,\n    browseName: \"Motor Amps\",\n    nodeId: \"ns=1;s=Motor_Amps\",\n    dataType: \"Float\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Float, value: ctx.get(\"Stand1.Motor_Amps\") }),\n      set: (v) => { ctx.set(\"Stand1.Motor_Amps\", parseFloat(v.value)); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: stand1Folder,\n    browseName: \"Roll Gap (mm)\",\n    nodeId: \"ns=1;s=Roll_Gap_mm\",\n    dataType: \"Float\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Float, value: ctx.get(\"Stand1.Roll_Gap_mm\") }),\n      set: (v) => { ctx.set(\"Stand1.Roll_Gap_mm\", parseFloat(v.value)); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: stand1Folder,\n    browseName: \"Running\",\n    nodeId: \"ns=1;s=Running\",\n    dataType: \"Boolean\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Boolean, value: ctx.get(\"Stand1.Running\") }),\n      set: (v) => { ctx.set(\"Stand1.Running\", v.value); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: stand1Folder,\n    browseName: \"State\",\n    nodeId: \"ns=1;s=State\",\n    dataType: \"Int32\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Int32, value: ctx.get(\"Stand1.State\") }),\n      set: (v) => { ctx.set(\"Stand1.State\", v.value); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: stand1Folder,\n    browseName: \"Faulted\",\n    nodeId: \"ns=1;s=Fault\",\n    dataType: \"Boolean\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Boolean, value: ctx.get(\"Stand1.Fault\") }),\n      set: (v) => { ctx.set(\"Stand1.Fault\", v.value); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  // --- Add Caster Folder ---\n  const casterFolder = namespace.addFolder(deviceFolder, { browseName: \"Caster\" });\n\n  namespace.addVariable({\n    organizedBy: casterFolder,\n    browseName: \"Mold Level\",\n    nodeId: \"ns=1;s=Mold_Level\",\n    dataType: \"Float\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Float, value: ctx.get(\"Caster.Mold_Level\") }),\n      set: (v) => { ctx.set(\"Caster.Mold_Level\", parseFloat(v.value)); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: casterFolder,\n    browseName: \"Spray Water Flow\",\n    nodeId: \"ns=1;s=SprayWater_Flow\",\n    dataType: \"Float\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Float, value: ctx.get(\"Caster.SprayWater_Flow\") }),\n      set: (v) => { ctx.set(\"Caster.SprayWater_Flow\", parseFloat(v.value)); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: casterFolder,\n    browseName: \"Tundish Temperature\",\n    nodeId: \"ns=1;s=Tundish_Temp\",\n    dataType: \"Float\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Float, value: ctx.get(\"Caster.Tundish_Temp\") }),\n      set: (v) => { ctx.set(\"Caster.Tundish_Temp\", parseFloat(v.value)); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  // --- Add Furnace Folder ---\n  const furnaceFolder = namespace.addFolder(deviceFolder, { browseName: \"Furnace\" });\n\n  namespace.addVariable({\n    organizedBy: furnaceFolder,\n    browseName: \"Zone 1 Temperature\",\n    nodeId: \"ns=1;s=Zone1_Temp\",\n    dataType: \"Float\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Float, value: ctx.get(\"Furnace.Zone1_Temp\") }),\n      set: (v) => { ctx.set(\"Furnace.Zone1_Temp\", parseFloat(v.value)); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: furnaceFolder,\n    browseName: \"Zone 2 Temperature\",\n    nodeId: \"ns=1;s=Zone2_Temp\",\n    dataType: \"Float\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Float, value: ctx.get(\"Furnace.Zone2_Temp\") }),\n      set: (v) => { ctx.set(\"Furnace.Zone2_Temp\", parseFloat(v.value)); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  namespace.addVariable({\n    organizedBy: furnaceFolder,\n    browseName: \"Burner Status\",\n    nodeId: \"ns=1;s=Burner_Status\",\n    dataType: \"Boolean\",\n    value: {\n      get: () => new Variant({ dataType: DataType.Boolean, value: ctx.get(\"Furnace.Burner_Status\") }),\n      set: (v) => { ctx.set(\"Furnace.Burner_Status\", v.value); return opcua.StatusCodes.Good; }\n    }\n  });\n\n  node.warn(\"Construction of new address space for OPC UA done\");\n  done();\n}\n",
+        "x": 970,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "cfcd65d575b4272d",
+        "type": "inject",
+        "z": "1253559b9a061a18",
+        "g": "ce9e6cdf4237d186",
+        "name": "Send Every 10s",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 520,
+        "wires": [
+            [
+                "9a6f925d91499c84"
+            ]
+        ]
+    },
+    {
+        "id": "9a6f925d91499c84",
+        "type": "function",
+        "z": "1253559b9a061a18",
+        "g": "ce9e6cdf4237d186",
+        "name": "Generate Simulated PLC Data",
+        "func": "// Simulate Stand1 Tags\nflow.set('Stand1.Entry_Tension_OK', Math.random() >= 0.5);\nflow.set('Stand1.Exit_Tension_OK', Math.random() >= 0.5);\nflow.set('Stand1.Roll_Speed_RPM', Math.random() * 1200);            // 0–1200 RPM\nflow.set('Stand1.Motor_Torque', Math.random() * 100);               // 0–100% torque\nflow.set('Stand1.Motor_Amps', Math.random() * 300);                 // 0–300 A\nflow.set('Stand1.Roll_Gap_mm', Math.random() * 5 + 0.5);            // 0.5–5.5 mm\nflow.set('Stand1.Running', Math.random() >= 0.5);\nflow.set('Stand1.State', Math.floor(Math.random() * 10));           // Simulated DINT state\nflow.set('Stand1.Fault', Math.random() >= 0.9);                     // 10% chance of fault\n\n// Simulate Caster Tags\nflow.set('Caster.Mold_Level', Math.random() * 100);                 // 0–100%\nflow.set('Caster.SprayWater_Flow', Math.random() * 50);             // 0–50 GPM\nflow.set('Caster.Tundish_Temp', Math.random() * 550 + 1650);        // 1650–2200 °F\n\n// Simulate Furnace Tags\nflow.set('Furnace.Zone1_Temp', Math.random() * 550 + 1650);         // 1650–2200 °F\nflow.set('Furnace.Zone2_Temp', Math.random() * 550 + 1650);         // 1650–2200 °F\nflow.set('Furnace.Burner_Status', Math.random() >= 0.5);            // On/Off\n\nmsg.payload = {\n    Stand1: {\n        Entry_Tension_OK: flow.get('Stand1.Entry_Tension_OK'),\n        Exit_Tension_OK: flow.get('Stand1.Exit_Tension_OK'),\n        Roll_Speed_RPM: flow.get('Stand1.Roll_Speed_RPM'),\n        Motor_Torque: flow.get('Stand1.Motor_Torque'),\n        Motor_Amps: flow.get('Stand1.Motor_Amps'),\n        Roll_Gap_mm: flow.get('Stand1.Roll_Gap_mm'),\n        Running: flow.get('Stand1.Running'),\n        State: flow.get('Stand1.State'),\n        Fault: flow.get('Stand1.Fault')\n    },\n    Caster: {\n        Mold_Level: flow.get('Caster.Mold_Level'),\n        SprayWater_Flow: flow.get('Caster.SprayWater_Flow'),\n        Tundish_Temp: flow.get('Caster.Tundish_Temp')\n    },\n    Furnace: {\n        Zone1_Temp: flow.get('Furnace.Zone1_Temp'),\n        Zone2_Temp: flow.get('Furnace.Zone2_Temp'),\n        Burner_Status: flow.get('Furnace.Burner_Status')\n    }\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 520,
+        "wires": [
+            [
+                "9231915e49826189"
+            ]
+        ]
+    },
+    {
+        "id": "9231915e49826189",
+        "type": "debug",
+        "z": "1253559b9a061a18",
+        "g": "ce9e6cdf4237d186",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "8ef88ccf75bd7940",
+        "type": "function",
+        "z": "1253559b9a061a18",
+        "g": "0bdc4d11f172a074",
+        "name": "Set Payload",
+        "func": "const customers = [\"Acme\", \"SteelWorks\", \"GigaSteel\"];\nconst paths = [\"Coil\", \"Bar\", \"Rod\"];\n\nmsg.payload = {\n    metrics: [\n        {\n            name: \"American Steel/Charlotte/Rolling/MES/Lot\",\n            value: String(Math.floor(Math.random() * 100000)),\n            type: \"String\"\n        },\n        {\n            name: \"American Steel/Charlotte/Rolling/MES/Customer\",\n            value: customers[Math.floor(Math.random() * customers.length)],\n            type: \"String\"\n        },\n        {\n            name: \"American Steel/Charlotte/Rolling/MES/Path\",\n            value: paths[Math.floor(Math.random() * paths.length)],\n            type: \"String\"\n        },\n        {\n            name: \"American Steel/Charlotte/Rolling/MES/Quantity\",\n            value: Math.floor(Math.random() * 50) + 1,\n            type: \"Int32\"\n        }\n    ]\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 320,
+        "wires": [
+            [
+                "55a21c89afb9dee6"
+            ]
+        ]
+    },
+    {
+        "id": "07d77884660ba378",
+        "type": "inject",
+        "z": "1253559b9a061a18",
+        "g": "0bdc4d11f172a074",
+        "name": "Send Every 10s",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 320,
+        "wires": [
+            [
+                "8ef88ccf75bd7940"
+            ]
+        ]
+    },
+    {
+        "id": "b38654653c80baa7",
+        "type": "debug",
+        "z": "0adbdc6f428d3045",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "82c61aedc4da032b",
+        "type": "mqtt in",
+        "z": "0adbdc6f428d3045",
+        "name": "Press 103",
+        "topic": "unsAv1.0/Carolina Press Co/Fort Mill/BigQuery/EndPoint_Press 103",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "f334516e5710db2b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "1d17ae89938f0c54"
+            ]
+        ]
+    },
+    {
+        "id": "1d17ae89938f0c54",
+        "type": "function",
+        "z": "0adbdc6f428d3045",
+        "name": "Parse",
+        "func": "let data = {};\n\ntry {\n    data = JSON.parse(msg.payload.value);  // Parse the stringified JSON\n} catch (err) {\n    node.error(\"Failed to parse payload.value as JSON\", msg);\n    return null;\n}\n\nmsg.payload = {\n    timestamp: data.timestamp,\n    Asset: {\n        AssetID: data.Asset.AssetID,\n        Name: data.Asset.Name,\n        Model: data.Asset.Model,\n        OEM: data.Asset.OEM\n    },\n    Dashboard: {\n        OEE: data.Dashboard.OEE,\n        Quality: data.Dashboard.Quality,\n        Performance: data.Dashboard.Performance,\n        Availability: data.Dashboard.Availability\n    },\n    Edge: {\n        Infeed: data.Edge.Infeed,\n        Outfeed: data.Edge.Outfeed,\n        State: data.Edge.State,\n        Waste: data.Edge.Waste\n    },\n    Line: {\n        Infeed: data.Line.Infeed,\n        Outfeed: data.Line.Outfeed,\n        State: data.Line.State,\n        Waste: data.Line.Waste\n    }\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 260,
+        "wires": [
+            [
+                "be3658a5c366a362",
+                "b38654653c80baa7"
+            ]
+        ]
+    },
+    {
+        "id": "be3658a5c366a362",
+        "type": "google-cloud-bigquery store",
+        "z": "0adbdc6f428d3045",
+        "account": "2a3102b75b01076a",
+        "keyFilename": "",
+        "projectId": "uns-demo-464717",
+        "datasetId": "uns_demo",
+        "tableId": "press_data",
+        "name": "Insert",
+        "x": 550,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b9c321f8bef38f25",
+        "type": "mqtt in",
+        "z": "0adbdc6f428d3045",
+        "name": "Press 104",
+        "topic": "unsAv1.0/Carolina Press Co/Fort Mill/BigQuery/EndPoint_Press 104",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "f334516e5710db2b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "1d17ae89938f0c54"
+            ]
+        ]
+    },
+    {
+        "id": "8131ee9e66426e81",
+        "type": "mqtt in",
+        "z": "0adbdc6f428d3045",
+        "name": "Press 105",
+        "topic": "unsAv1.0/Carolina Press Co/Fort Mill/BigQuery/EndPoint_Press 105",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "f334516e5710db2b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "1d17ae89938f0c54"
+            ]
+        ]
+    },
+    {
+        "id": "2dd6ac1d730c1017",
+        "type": "mqtt in",
+        "z": "0adbdc6f428d3045",
+        "name": "Press 106",
+        "topic": "unsAv1.0/Carolina Press Co/Fort Mill/BigQuery/EndPoint_Press 106",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "f334516e5710db2b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "1d17ae89938f0c54"
+            ]
+        ]
+    },
+    {
+        "id": "6e246469725d8e16",
+        "type": "debug",
+        "z": "0adbdc6f428d3045",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "bda067c192a86a6b",
+        "type": "mqtt in",
+        "z": "0adbdc6f428d3045",
+        "name": "Print 103",
+        "topic": "unsAv1.0/Carolina Press Co/Fort Mill/BigQuery/EndPoint_Print 103",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "f334516e5710db2b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 500,
+        "wires": [
+            [
+                "2588f662a2242017"
+            ]
+        ]
+    },
+    {
+        "id": "2588f662a2242017",
+        "type": "function",
+        "z": "0adbdc6f428d3045",
+        "name": "Parse",
+        "func": "let data = {};\n\ntry {\n    data = JSON.parse(msg.payload.value);  // Parse the stringified JSON\n} catch (err) {\n    node.error(\"Failed to parse payload.value as JSON\", msg);\n    return null;\n}\n\nmsg.payload = {\n    timestamp: data.timestamp,\n    Asset: {\n        AssetID: data.Asset.AssetID,\n        Name: data.Asset.Name,\n        Model: data.Asset.Model,\n        OEM: data.Asset.OEM\n    },\n    Dashboard: {\n        OEE: data.Dashboard.OEE,\n        Quality: data.Dashboard.Quality,\n        Performance: data.Dashboard.Performance,\n        Availability: data.Dashboard.Availability\n    },\n    Edge: {\n        Infeed: data.Edge.Infeed,\n        Outfeed: data.Edge.Outfeed,\n        State: data.Edge.State,\n        Waste: data.Edge.Waste\n    },\n    Line: {\n        Infeed: data.Line.Infeed,\n        Outfeed: data.Line.Outfeed,\n        State: data.Line.State,\n        Waste: data.Line.Waste\n    }\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 640,
+        "wires": [
+            [
+                "492f2afbb8c4d114",
+                "6e246469725d8e16"
+            ]
+        ]
+    },
+    {
+        "id": "492f2afbb8c4d114",
+        "type": "google-cloud-bigquery store",
+        "z": "0adbdc6f428d3045",
+        "account": "2a3102b75b01076a",
+        "keyFilename": "",
+        "projectId": "uns-demo-464717",
+        "datasetId": "uns_demo",
+        "tableId": "print_data",
+        "name": "Insert",
+        "x": 550,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "b8d744258eeaabb0",
+        "type": "mqtt in",
+        "z": "0adbdc6f428d3045",
+        "name": "Print 104",
+        "topic": "unsAv1.0/Carolina Press Co/Fort Mill/BigQuery/EndPoint_Print 104",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "f334516e5710db2b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 600,
+        "wires": [
+            [
+                "2588f662a2242017"
+            ]
+        ]
+    },
+    {
+        "id": "c6ca1348d410bd85",
+        "type": "mqtt in",
+        "z": "0adbdc6f428d3045",
+        "name": "Print  105",
+        "topic": "unsAv1.0/Carolina Press Co/Fort Mill/BigQuery/EndPoint_Print 105",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "f334516e5710db2b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 680,
+        "wires": [
+            [
+                "2588f662a2242017"
+            ]
+        ]
+    },
+    {
+        "id": "7381185b68ef73ee",
+        "type": "mqtt in",
+        "z": "0adbdc6f428d3045",
+        "name": "Print 106",
+        "topic": "unsAv1.0/Carolina Press Co/Fort Mill/BigQuery/EndPoint_Print 106",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "f334516e5710db2b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 760,
+        "wires": [
+            [
+                "2588f662a2242017"
+            ]
+        ]
+    }
+]
